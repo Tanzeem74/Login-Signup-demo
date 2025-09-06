@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_signup/auth/auth_service.dart';
 import 'package:login_signup/signuppage.dart';
 
 class Loginpage extends StatefulWidget {
@@ -9,9 +10,26 @@ class Loginpage extends StatefulWidget {
 }
 
 class _LoginpageState extends State<Loginpage> {
+  final authService = AuthService();
+
   final _formKey = GlobalKey<FormState>();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  void login() async {
+    final email = emailController.text;
+    final password = passwordController.text;
+
+    try {
+      await authService.signInEmailPass(email, password);
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("error $e")));
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -98,6 +116,7 @@ class _LoginpageState extends State<Loginpage> {
                     ElevatedButton.icon(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {}
+                        login();
                       },
                       icon: Icon(Icons.login),
                       label: Text("Login", style: TextStyle(fontSize: 18)),

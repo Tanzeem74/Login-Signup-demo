@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:login_signup/auth/auth_service.dart';
 
 class Signuppage extends StatefulWidget {
   const Signuppage({super.key});
@@ -8,12 +9,37 @@ class Signuppage extends StatefulWidget {
 }
 
 class _SignuppageState extends State<Signuppage> {
+  final authService = AuthService();
+
   final _formKey = GlobalKey<FormState>();
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController confirmpasswordController =
       TextEditingController();
+
+  void signUp() async {
+    final email = emailController.text;
+    final password = passwordController.text;
+    final confirmPassword = confirmpasswordController.text;
+    if (password != confirmPassword) {
+      ScaffoldMessenger.of(
+        context,
+      ).showSnackBar(SnackBar(content: Text('password does not match')));
+      return;
+    }
+    try {
+      await authService.signUpEmailPass(email, password);
+      // ignore: use_build_context_synchronously
+      Navigator.pop(context);
+    } catch (e) {
+      if (mounted) {
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text("error $e")));
+      }
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -136,6 +162,7 @@ class _SignuppageState extends State<Signuppage> {
                     ElevatedButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {}
+                        signUp();
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: Colors.teal,
