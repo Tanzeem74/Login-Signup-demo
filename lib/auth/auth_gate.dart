@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:login_signup/book_list_page.dart';
 import 'package:login_signup/loginpage.dart';
-import 'package:login_signup/profilepage.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class AuthGate extends StatelessWidget {
@@ -18,7 +18,7 @@ class AuthGate extends StatelessWidget {
         final session = snapshot.data?.session;
 
         if (session != null) {
-          return Profilepage();
+          return Booklistpage();
         } else {
           return Loginpage();
         }
