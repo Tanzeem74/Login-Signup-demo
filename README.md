@@ -1,12 +1,24 @@
-# login_signup
+# 📚 Book Management App
 
-A new Flutter project.
+A Flutter project for managing books with **Supabase Authentication**.  
+This app allows users to **register, login, and manage books** (add, update, delete, search).
 
-- A Flutter application demonstrating login page & Signup Page UI. This app is developed for the Smart Application Development course at my University Assignment.
+---
 
-Features
+## ✨ Features
 
-- Simple Login Page
+- 🔐 User Authentication (Sign Up / Login) with **Supabase**
+- ➕ Add new books (title, author, etc.)
+- ✏️ Update existing book details
+- ❌ Delete books
+- 🔍 Search books by book name or author name
+- 📱 User-friendly Flutter UI
 
-- Simple Signup Page
+---
 
+## 🛠️ Tech Stack
+
+- **Framework**: Flutter  
+- **Language**: Dart  
+- **Authentication & Backend**: [Supabase]  
+- **Database/Storage**: Supabase Database
